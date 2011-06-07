@@ -53,7 +53,9 @@
 @synthesize previousTime;
 @synthesize decelerating;
 @synthesize scrollEnabled;
+@synthesize linearScroll;
 @synthesize decelerationRate;
+@synthesize speed;
 @synthesize bounces;
 @synthesize startOffset;
 @synthesize endOffset;
@@ -66,7 +68,9 @@
     perspective = -1.0/500.0;
     decelerationRate = 0.9;
     scrollEnabled = YES;
+    linearScroll = YES;
     bounces = YES;
+    speed = 0.4;
     
     contentView = [[UIView alloc] initWithFrame:self.bounds];
     [self addSubview:contentView];
@@ -502,13 +506,19 @@
     
     if (scrolling)
     {
-        NSTimeInterval time = (currentTime - startTime ) / 0.4;
+        NSTimeInterval time = (currentTime - startTime ) / speed;
         if (time >= 1.0)
         {
             time = 1.0;
             scrolling = NO;
         }
-        float delta = (time < 0.5f)? 0.5f * pow(time * 2.0, 3.0): 0.5f * pow(time * 2.0 - 2.0, 3.0) + 1.0; //ease in/out
+        float delta;
+        if (linearScroll) {
+            delta = time;
+        } else {
+            //ease in/out
+            delta = (time < 0.5f)? 0.5f * pow(time * 2.0, 3.0): 0.5f * pow(time * 2.0 - 2.0, 3.0) + 1.0;
+        }
         scrollOffset = startOffset + (endOffset - startOffset) * delta;
         [self didScroll];
     }
