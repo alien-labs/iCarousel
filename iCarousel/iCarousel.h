@@ -31,20 +31,24 @@ iCarouselType;
 @property (nonatomic, assign) iCarouselType type;
 @property (nonatomic, assign) float perspective;
 @property (nonatomic, assign) float decelerationRate;
-@property (nonatomic, assign) float speed;
 @property (nonatomic, assign) BOOL scrollEnabled;
 @property (nonatomic, assign) BOOL linearScroll;
 @property (nonatomic, assign) BOOL bounces;
+@property (nonatomic, assign) CGSize contentOffset;
+@property (nonatomic, assign) CGSize viewpointOffset;
 @property (nonatomic, readonly) NSInteger numberOfItems;
 @property (nonatomic, readonly) NSInteger numberOfPlaceholders;
 @property (nonatomic, readonly) NSInteger currentItemIndex;
 @property (nonatomic, retain, readonly) NSArray *itemViews;
 @property (nonatomic, retain, readonly) NSArray *placeholderViews;
 @property (nonatomic, readonly) float itemWidth;
+@property (nonatomic, retain, readonly) UIView *contentView;
 
-- (void)scrollToItemAtIndex:(NSUInteger)index animated:(BOOL)animated;
-- (void)removeItemAtIndex:(NSUInteger)index animated:(BOOL)animated;
-- (void)insertItemAtIndex:(NSUInteger)index animated:(BOOL)animated;
+- (void)scrollByNumberOfItems:(NSInteger)itemCount duration:(NSTimeInterval)duration;
+- (void)scrollToItemAtIndex:(NSInteger)index duration:(NSTimeInterval)duration;
+- (void)scrollToItemAtIndex:(NSInteger)index animated:(BOOL)animated;
+- (void)removeItemAtIndex:(NSInteger)index animated:(BOOL)animated;
+- (void)insertItemAtIndex:(NSInteger)index animated:(BOOL)animated;
 - (void)reloadData;
 
 @end
